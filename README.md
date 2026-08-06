@@ -10,17 +10,17 @@ A MATLAB/Simulink algorithm that converts a continuous stream of head-angle data
 
 ## Approach
 
-1. **Aggregate the window** — evaluate multiple candidate averaging strategies over the most recent window of head-angle samples:
+1. **Aggregate the window**: evaluate multiple candidate averaging strategies over the most recent window of head-angle samples:
    - Simple mean of the full window
    - Derivative-weighted mean (weights recent, fast-changing samples more heavily)
    - Endpoint-weighted average (biases toward the most recent samples in the window)
-2. **Snap to 15° increments** — round the aggregated angle to the nearest valid target.
-3. **Trend-aware correction** — rather than rounding each window in isolation, the algorithm considers the trend of the last two target angles. If the trend indicates a consistent direction of movement (e.g. two consecutive +15° steps) and the current raw calculation falls short of continuing that trend (e.g. +7° instead of +15°), the algorithm can choose to continue the trend rather than truncate it early, reducing oscillation and lag in the output.
+2. **Snap to 15° increments**: round the aggregated angle to the nearest valid target.
+3. **Trend-aware correction**:  rather than rounding each window in isolation, the algorithm considers the trend of the last two target angles. If the trend indicates a consistent direction of movement (e.g. two consecutive +15° steps) and the current raw calculation falls short of continuing that trend (e.g. +7° instead of +15°), the algorithm can choose to continue the trend rather than truncate it early, reducing oscillation and lag in the output.
 
 ## Files
 
-- `steering_angle.m` — core aggregation + snapping + trend-correction logic
-- `simulate_demo.m` — generates synthetic head-angle input and demonstrates the algorithm end-to-end
+- `steering_angle.m`: core aggregation + snapping + trend-correction logic
+- `simulate_demo.m`: generates synthetic head-angle input and demonstrates the algorithm end-to-end
 
 ## Notes
 
